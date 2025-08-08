@@ -1,10 +1,10 @@
 
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { LogOut } from "lucide-react";
-import { useAuth } from "@/hooks/useAuth";
 import TemperatureCard from "@/components/TemperatureCard";
 import TemperatureChart from "@/components/TemperatureChart";
 import AlertsPanel from "@/components/AlertsPanel";
@@ -21,7 +21,7 @@ import {
 } from "@/utils/temperatureUtils";
 
 const Index = () => {
-  const { signOut, user } = useAuth();
+  const navigate = useNavigate();
   const [temperatureData, setTemperatureData] = useState<TemperatureReading[]>([]);
   const [currentTemp, setCurrentTemp] = useState(0);
   const [isOnline, setIsOnline] = useState(true);
@@ -115,7 +115,7 @@ const Index = () => {
             <Button
               variant="outline"
               size="sm"
-              onClick={signOut}
+              onClick={() => navigate('/login')}
               className="flex items-center gap-2"
             >
               <LogOut className="w-4 h-4" />

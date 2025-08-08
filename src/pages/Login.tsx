@@ -1,10 +1,9 @@
 import { useState } from 'react'
-import { Navigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { useAuth } from '@/hooks/useAuth'
 import { useToast } from '@/hooks/use-toast'
 import { Thermometer, Lock, Mail } from 'lucide-react'
 
@@ -12,30 +11,27 @@ export default function Login() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)
-  const { signIn, user } = useAuth()
+  const navigate = useNavigate()
   const { toast } = useToast()
-
-  // Redirect if already logged in
-  if (user) {
-    return <Navigate to="/" replace />
-  }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setLoading(true)
 
-    const { error } = await signIn(email, password)
+    // Simular login (apenas visual)
+    await new Promise(resolve => setTimeout(resolve, 1000))
 
-    if (error) {
-      toast({
-        title: "Erro de autenticação",
-        description: "Email ou senha inválidos",
-        variant: "destructive",
-      })
-    } else {
+    if (email && password) {
       toast({
         title: "Login realizado com sucesso",
         description: "Bem-vindo ao Portal de Monitoramento",
+      })
+      navigate('/')
+    } else {
+      toast({
+        title: "Erro de autenticação",
+        description: "Por favor, preencha todos os campos",
+        variant: "destructive",
       })
     }
 
