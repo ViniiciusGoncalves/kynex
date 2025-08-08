@@ -5,10 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { LogOut } from "lucide-react";
-import TemperatureCard from "@/components/TemperatureCard";
-import TemperatureChart from "@/components/TemperatureChart";
-import AlertsPanel from "@/components/AlertsPanel";
-import StatisticsPanel from "@/components/StatisticsPanel";
+import SensorCarousel from "@/components/SensorCarousel";
 import ExportPanel from "@/components/ExportPanel";
 import { 
   generateMockData, 
@@ -124,61 +121,16 @@ const Index = () => {
           </div>
         </div>
 
-        {/* Main Dashboard */}
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
-          {/* Temperature Cards */}
-          <TemperatureCard
-            title="Temperatura Atual"
-            value={currentTemp}
-            unit="°C"
-            icon={currentTemp > 30 ? 'hot' : currentTemp < 15 ? 'cold' : 'normal'}
-            trend={getCurrentTempTrend()}
-            className="lg:col-span-1"
-          />
-          
-          <TemperatureCard
-            title="Temperatura Média"
-            value={statistics.average}
-            unit="°C"
-            icon="normal"
-            className="lg:col-span-1"
-          />
-          
-          <TemperatureCard
-            title="Máxima (24h)"
-            value={statistics.maximum}
-            unit="°C"
-            icon="hot"
-            className="lg:col-span-1"
-          />
-          
-          <TemperatureCard
-            title="Mínima (24h)"
-            value={statistics.minimum}
-            unit="°C"
-            icon="cold"
-            className="lg:col-span-1"
-          />
-        </div>
+        {/* Sensor Carousel */}
+        <SensorCarousel
+          temperatureData={temperatureData}
+          currentTemp={currentTemp}
+          minThreshold={MIN_THRESHOLD}
+          maxThreshold={MAX_THRESHOLD}
+        />
 
-        {/* Chart and Alerts */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          <TemperatureChart
-            data={chartData}
-            minThreshold={MIN_THRESHOLD}
-            maxThreshold={MAX_THRESHOLD}
-          />
-          
-          <AlertsPanel alerts={alerts} />
-        </div>
-
-        {/* Statistics and Export */}
+        {/* Export Panel */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <StatisticsPanel
-            statistics={statistics}
-            period="Últimas 24 horas"
-          />
-          
           <ExportPanel
             onExportPDF={handleExportPDF}
             onExportCSV={handleExportCSV}
