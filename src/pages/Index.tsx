@@ -2,6 +2,9 @@
 import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { LogOut } from "lucide-react";
+import { useAuth } from "@/hooks/useAuth";
 import TemperatureCard from "@/components/TemperatureCard";
 import TemperatureChart from "@/components/TemperatureChart";
 import AlertsPanel from "@/components/AlertsPanel";
@@ -18,6 +21,7 @@ import {
 } from "@/utils/temperatureUtils";
 
 const Index = () => {
+  const { signOut, user } = useAuth();
   const [temperatureData, setTemperatureData] = useState<TemperatureReading[]>([]);
   const [currentTemp, setCurrentTemp] = useState(0);
   const [isOnline, setIsOnline] = useState(true);
@@ -108,6 +112,15 @@ const Index = () => {
             <div className="text-sm text-gray-500">
               Última atualização: {lastUpdate.toLocaleTimeString()}
             </div>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={signOut}
+              className="flex items-center gap-2"
+            >
+              <LogOut className="w-4 h-4" />
+              Sair
+            </Button>
           </div>
         </div>
 
