@@ -5,7 +5,8 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { useToast } from '@/hooks/use-toast'
-import { Thermometer, Lock, Mail } from 'lucide-react'
+import { Lock, Mail } from 'lucide-react'
+import logo from '../components/img/WhatsApp_Image_2025-08-11_at_20.56.19-removebg-preview.png'
 
 export default function Login() {
   const [email, setEmail] = useState('')
@@ -13,6 +14,8 @@ export default function Login() {
   const [loading, setLoading] = useState(false)
   const navigate = useNavigate()
   const { toast } = useToast()
+
+
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -43,12 +46,12 @@ export default function Login() {
       <Card className="w-full max-w-md">
         <CardHeader className="text-center space-y-4">
           <div className="mx-auto w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center">
-            <Thermometer className="w-8 h-8 text-primary" />
+            <img src={logo} />
           </div>
           <div>
-            <CardTitle className="text-2xl font-bold">Portal de Monitoramento</CardTitle>
+            <CardTitle className="text-2xl font-bold">Portal Kynex</CardTitle>
             <CardDescription>
-              Sistema de monitoramento de temperatura do poço do elevador
+              Sistema de monitoramento do elevador
             </CardDescription>
           </div>
         </CardHeader>

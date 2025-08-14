@@ -27,7 +27,9 @@ import {
   TemperatureReading,
   calculateStatistics, 
   generateAlerts, 
-  formatChartData
+  formatChartData,
+  exportToPDF,
+  exportToCSV
 } from "@/utils/temperatureUtils";
 
 import {
@@ -37,6 +39,7 @@ import {
   generateVibrationAlerts,
   formatVibrationChartData
 } from "@/utils/vibrationUtils";
+import ExportPanel from './ExportPanel';
 
 interface SensorCarouselProps {
   temperatureData: TemperatureReading[];
@@ -48,6 +51,8 @@ interface SensorCarouselProps {
 const SensorCarousel = ({ temperatureData, currentTemp, minThreshold, maxThreshold }: SensorCarouselProps) => {
   const [vibrationData, setVibrationData] = useState<VibrationReading[]>([]);
   const [currentVibration, setCurrentVibration] = useState({ axisX: 0, axisY: 0, axisZ: 0, rms: 0 });
+  const [lastUpdate, setLastUpdate] = useState(new Date());
+  
 
   useEffect(() => {
     // Initialize vibration data
@@ -115,6 +120,16 @@ const SensorCarousel = ({ temperatureData, currentTemp, minThreshold, maxThresho
     return 'stable';
   };
 
+  const statistics = calculateStatistics(temperatureData);
+
+  const handleExportPDF = () => {
+    exportToPDF(statistics);
+  };
+
+  const handleExportCSV = () => {
+    exportToCSV(temperatureData, statistics);
+  };
+
   const sensors = [
     {
       id: 'temperature',
@@ -168,6 +183,10 @@ const SensorCarousel = ({ temperatureData, currentTemp, minThreshold, maxThresho
               statistics={temperatureStatistics}
               period="Últimas 24 horas"
             />
+            <ExportPanel
+            onExportPDF={handleExportPDF}
+            onExportCSV={handleExportCSV}
+            lastExport={lastUpdate}/>
           </div>
         </div>
       )
@@ -223,6 +242,10 @@ const SensorCarousel = ({ temperatureData, currentTemp, minThreshold, maxThresho
               statistics={vibrationStatistics}
               period="Últimas 24 horas"
             />
+            <ExportPanel
+            onExportPDF={handleExportPDF}
+            onExportCSV={handleExportCSV}
+            lastExport={lastUpdate}/>
           </div>
         </div>
       )

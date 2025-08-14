@@ -129,15 +129,6 @@ const Index = () => {
           maxThreshold={MAX_THRESHOLD}
         />
 
-        {/* Export Panel */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <ExportPanel
-            onExportPDF={handleExportPDF}
-            onExportCSV={handleExportCSV}
-            lastExport={lastUpdate}
-          />
-        </div>
-
         {/* System Info */}
         <Card>
           <CardHeader>
