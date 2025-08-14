@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { LogOut } from "lucide-react";
+import { LogOut, History, FileText, Package } from "lucide-react";
 import SensorCarousel from "@/components/SensorCarousel";
 import ExportPanel from "@/components/ExportPanel";
 import { 
@@ -109,15 +109,35 @@ const Index = () => {
             <div className="text-sm text-gray-500">
               Última atualização: {lastUpdate.toLocaleTimeString()}
             </div>
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={() => navigate('/login')}
-              className="flex items-center gap-2"
-            >
-              <LogOut className="w-4 h-4" />
-              Sair
-            </Button>
+            <div className="flex items-center gap-2">
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => navigate('/maintenance')}
+                className="flex items-center gap-2"
+              >
+                <History className="w-4 h-4" />
+                Manutenção
+              </Button>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => navigate('/documents')}
+                className="flex items-center gap-2"
+              >
+                <FileText className="w-4 h-4" />
+                Documentos
+              </Button>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => navigate('/login')}
+                className="flex items-center gap-2"
+              >
+                <LogOut className="w-4 h-4" />
+                Sair
+              </Button>
+            </div>
           </div>
         </div>
 
